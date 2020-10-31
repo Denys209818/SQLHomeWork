@@ -80,28 +80,52 @@ INSERT INTO Teachers (EmploymentDate, IsAssistant, IsProfessor, Name, Position, 
 VALUES ('2012-01-21', 0, 1, 'Kiril', 'Laborant', 50, 15000, 'SurnameOfKiril')
 
 
---	Запроси
---	1. Вывести таблицу кафедр, но расположить ее поля в обратном порядке.
+--	Г‡Г ГЇГ°Г®Г±ГЁ
+--	1. Г‚Г»ГўГҐГ±ГІГЁ ГІГ ГЎГ«ГЁГ¶Гі ГЄГ ГґГҐГ¤Г°, Г­Г® Г°Г Г±ГЇГ®Г«Г®Г¦ГЁГІГј ГҐГҐ ГЇГ®Г«Гї Гў Г®ГЎГ°Г ГІГ­Г®Г¬ ГЇГ®Г°ГїГ¤ГЄГҐ.
 SELECT * FROM Departments ORDER BY Id DESC
 
---	2. Вывести названия групп и их рейтинги с уточнением имен полей именем таблицы.
-SELECT Name + ': ' + convert(nvarchar, Rating) as [Назва і рейтинг] FROM Groups
+--	2. Г‚Г»ГўГҐГ±ГІГЁ Г­Г Г§ГўГ Г­ГЁГї ГЈГ°ГіГЇГЇ ГЁ ГЁГµ Г°ГҐГ©ГІГЁГ­ГЈГЁ Г± ГіГІГ®Г·Г­ГҐГ­ГЁГҐГ¬ ГЁГ¬ГҐГ­ ГЇГ®Г«ГҐГ© ГЁГ¬ГҐГ­ГҐГ¬ ГІГ ГЎГ«ГЁГ¶Г».
+SELECT Name + ': ' + convert(nvarchar, Rating) as [ГЌГ Г§ГўГ  Ві Г°ГҐГ©ГІГЁГ­ГЈ] FROM Groups
 
---	3. Вывести для преподавателей их фамилию, процент ставки по отношению к надбавке и процент ставки по отношению к зарплате (сумма ставки и надбавки).
-SELECT Surname, (Salary + Premium) as [процент ставки по отношению к надбавке], (Premium + Salary) as [процент ставки по отношению к зарплате] FROM Teachers
+--	3. Г‚Г»ГўГҐГ±ГІГЁ Г¤Г«Гї ГЇГ°ГҐГЇГ®Г¤Г ГўГ ГІГҐГ«ГҐГ© ГЁГµ ГґГ Г¬ГЁГ«ГЁГѕ, ГЇГ°Г®Г¶ГҐГ­ГІ Г±ГІГ ГўГЄГЁ ГЇГ® Г®ГІГ­Г®ГёГҐГ­ГЁГѕ ГЄ Г­Г Г¤ГЎГ ГўГЄГҐ ГЁ ГЇГ°Г®Г¶ГҐГ­ГІ Г±ГІГ ГўГЄГЁ ГЇГ® Г®ГІГ­Г®ГёГҐГ­ГЁГѕ ГЄ Г§Г Г°ГЇГ«Г ГІГҐ (Г±ГіГ¬Г¬Г  Г±ГІГ ГўГЄГЁ ГЁ Г­Г Г¤ГЎГ ГўГЄГЁ).
+SELECT Surname, (Salary + Premium) as [ГЇГ°Г®Г¶ГҐГ­ГІ Г±ГІГ ГўГЄГЁ ГЇГ® Г®ГІГ­Г®ГёГҐГ­ГЁГѕ ГЄ Г­Г Г¤ГЎГ ГўГЄГҐ], (Premium + Salary) as [ГЇГ°Г®Г¶ГҐГ­ГІ Г±ГІГ ГўГЄГЁ ГЇГ® Г®ГІГ­Г®ГёГҐГ­ГЁГѕ ГЄ Г§Г Г°ГЇГ«Г ГІГҐ] FROM Teachers
 
---	4. Вывести таблицу факультетов в виде одного поля в следующем формате: “The dean of faculty [faculty] is [dean].”.
+--	4. Г‚Г»ГўГҐГ±ГІГЁ ГІГ ГЎГ«ГЁГ¶Гі ГґГ ГЄГіГ«ГјГІГҐГІГ®Гў Гў ГўГЁГ¤ГҐ Г®Г¤Г­Г®ГЈГ® ГЇГ®Г«Гї Гў Г±Г«ГҐГ¤ГіГѕГ№ГҐГ¬ ГґГ®Г°Г¬Г ГІГҐ: вЂњThe dean of faculty [faculty] is [dean].вЂќ.
 SELECT ('The dean of faculty ' + Name + ' is ' + Dean) as [Deans of faculties] FROM Faculties
 
---	5. Вывести фамилии преподавателей, которые являются профессорами и ставка которых превышает 1050.SELECT Surname FROM Teachers WHERE (IsProfessor = 1 AND Salary > 1050)--	6. Вывести названия кафедр, фонд финансирования которых меньше 11000 или больше 25000.SELECT * FROM Departments WHERE (Financing < 11000 OR Financing > 25000)--	7. Вывести названия факультетов кроме факультета “Computer Science”.SELECT * FROM Departments WHERE Name <> 'Computer Science'--	8. Вывести фамилии и должности преподавателей, которые не являются профессорами.SELECT Surname, Position FROM Teachers WHERE IsProfessor = 0--  9. Вывести фамилии, должности, ставки и надбавки ассистентов, у которых надбавка в диапазоне от 160 до 550.SELECT Surname, Position, Salary, Premium FROM Teachers WHERE (Premium >= 160 AND Premium <= 550)-- 10.Вывести фамилии и ставки ассистентов.SELECT Surname, Salary FROM Teachers WHERE IsAssistant = 1--	11.Вывести фамилии и должности преподавателей, которые были приняты на работу до 01.01.2000.SELECT Surname, Position FROM Teachers WHERE EmploymentDate < '2000-01-01'--	12.Вывести названия кафедр, которые в алфавитном порядке располагаются до кафедры “Software Development”. Выводимое поле должно иметь название “Name of Department”.SELECT [Name] AS [Name of Department]
+--	5. Г‚Г»ГўГҐГ±ГІГЁ ГґГ Г¬ГЁГ«ГЁГЁ ГЇГ°ГҐГЇГ®Г¤Г ГўГ ГІГҐГ«ГҐГ©, ГЄГ®ГІГ®Г°Г»ГҐ ГїГўГ«ГїГѕГІГ±Гї ГЇГ°Г®ГґГҐГ±Г±Г®Г°Г Г¬ГЁ ГЁ Г±ГІГ ГўГЄГ  ГЄГ®ГІГ®Г°Г»Гµ ГЇГ°ГҐГўГ»ГёГ ГҐГІ 1050.
+SELECT Surname FROM Teachers WHERE (IsProfessor = 1 AND Salary > 1050)
+
+--	6. Г‚Г»ГўГҐГ±ГІГЁ Г­Г Г§ГўГ Г­ГЁГї ГЄГ ГґГҐГ¤Г°, ГґГ®Г­Г¤ ГґГЁГ­Г Г­Г±ГЁГ°Г®ГўГ Г­ГЁГї ГЄГ®ГІГ®Г°Г»Гµ Г¬ГҐГ­ГјГёГҐ 11000 ГЁГ«ГЁ ГЎГ®Г«ГјГёГҐ 25000.
+SELECT * FROM Departments WHERE (Financing < 11000 OR Financing > 25000)
+
+--	7. Г‚Г»ГўГҐГ±ГІГЁ Г­Г Г§ГўГ Г­ГЁГї ГґГ ГЄГіГ«ГјГІГҐГІГ®Гў ГЄГ°Г®Г¬ГҐ ГґГ ГЄГіГ«ГјГІГҐГІГ  вЂњComputer ScienceвЂќ.
+SELECT * FROM Departments WHERE Name <> 'Computer Science'
+
+--	8. Г‚Г»ГўГҐГ±ГІГЁ ГґГ Г¬ГЁГ«ГЁГЁ ГЁ Г¤Г®Г«Г¦Г­Г®Г±ГІГЁ ГЇГ°ГҐГЇГ®Г¤Г ГўГ ГІГҐГ«ГҐГ©, ГЄГ®ГІГ®Г°Г»ГҐ Г­ГҐ ГїГўГ«ГїГѕГІГ±Гї ГЇГ°Г®ГґГҐГ±Г±Г®Г°Г Г¬ГЁ.
+SELECT Surname, Position FROM Teachers WHERE IsProfessor = 0
+
+--  9. Г‚Г»ГўГҐГ±ГІГЁ ГґГ Г¬ГЁГ«ГЁГЁ, Г¤Г®Г«Г¦Г­Г®Г±ГІГЁ, Г±ГІГ ГўГЄГЁ ГЁ Г­Г Г¤ГЎГ ГўГЄГЁ Г Г±Г±ГЁГ±ГІГҐГ­ГІГ®Гў, Гі ГЄГ®ГІГ®Г°Г»Гµ Г­Г Г¤ГЎГ ГўГЄГ  Гў Г¤ГЁГ ГЇГ Г§Г®Г­ГҐ Г®ГІ 160 Г¤Г® 550.
+SELECT Surname, Position, Salary, Premium FROM Teachers WHERE (Premium >= 160 AND Premium <= 550)
+
+-- 10.Г‚Г»ГўГҐГ±ГІГЁ ГґГ Г¬ГЁГ«ГЁГЁ ГЁ Г±ГІГ ГўГЄГЁ Г Г±Г±ГЁГ±ГІГҐГ­ГІГ®Гў.
+SELECT Surname, Salary FROM Teachers WHERE IsAssistant = 1
+
+--	11.Г‚Г»ГўГҐГ±ГІГЁ ГґГ Г¬ГЁГ«ГЁГЁ ГЁ Г¤Г®Г«Г¦Г­Г®Г±ГІГЁ ГЇГ°ГҐГЇГ®Г¤Г ГўГ ГІГҐГ«ГҐГ©, ГЄГ®ГІГ®Г°Г»ГҐ ГЎГ»Г«ГЁ ГЇГ°ГЁГ­ГїГІГ» Г­Г  Г°Г ГЎГ®ГІГі Г¤Г® 01.01.2000.
+SELECT Surname, Position FROM Teachers WHERE EmploymentDate < '2000-01-01'
+
+--	12.Г‚Г»ГўГҐГ±ГІГЁ Г­Г Г§ГўГ Г­ГЁГї ГЄГ ГґГҐГ¤Г°, ГЄГ®ГІГ®Г°Г»ГҐ Гў Г Г«ГґГ ГўГЁГІГ­Г®Г¬ ГЇГ®Г°ГїГ¤ГЄГҐ Г°Г Г±ГЇГ®Г«Г ГЈГ ГѕГІГ±Гї Г¤Г® ГЄГ ГґГҐГ¤Г°Г» вЂњSoftware DevelopmentвЂќ. Г‚Г»ГўГ®Г¤ГЁГ¬Г®ГҐ ГЇГ®Г«ГҐ Г¤Г®Г«Г¦Г­Г® ГЁГ¬ГҐГІГј Г­Г Г§ГўГ Г­ГЁГҐ вЂњName of DepartmentвЂќ.
+SELECT [Name] AS [Name of Department]
 FROM Departments
 WHERE [Name]<'Software Development'
 ORDER BY [Name];
 
---	13.Вывести фамилии ассистентов, имеющих зарплату (сумма ставки и надбавки) не более 1200.
+--	13.Г‚Г»ГўГҐГ±ГІГЁ ГґГ Г¬ГЁГ«ГЁГЁ Г Г±Г±ГЁГ±ГІГҐГ­ГІГ®Гў, ГЁГ¬ГҐГѕГ№ГЁГµ Г§Г Г°ГЇГ«Г ГІГі (Г±ГіГ¬Г¬Г  Г±ГІГ ГўГЄГЁ ГЁ Г­Г Г¤ГЎГ ГўГЄГЁ) Г­ГҐ ГЎГ®Г«ГҐГҐ 1200.
 SELECT Surname FROM Teachers WHERE ((convert(int, Salary) + convert(int, Premium)) > 1200 AND IsAssistant = 1)
 
---	14.Вывести названия групп 5-го курса, имеющих рейтинг в диапазоне от 2 до 4.
-SELECT * FROM Groups WHERE (Year = 5 AND (Rating >= 2 AND Rating <= 4))
+--	14.Г‚Г»ГўГҐГ±ГІГЁ Г­Г Г§ГўГ Г­ГЁГї ГЈГ°ГіГЇГЇ 5-ГЈГ® ГЄГіГ°Г±Г , ГЁГ¬ГҐГѕГ№ГЁГµ Г°ГҐГ©ГІГЁГ­ГЈ Гў Г¤ГЁГ ГЇГ Г§Г®Г­ГҐ Г®ГІ 2 Г¤Г® 4.
+SELECT * FROM Groups WHERE (Year = 5 AND (Rating >= 2 AND Rating <= 4))                               
+SELECT * FROM Groups WHERE Rating IN (2,3,4) AND Year = 5
 
---	15.Вывести фамилии ассистентов со ставкой меньше 550 или надбавкой меньше 200.SELECT Surname FROM Teachers WHERE (IsAssistant = 1 AND (Salary < 550 OR Premium < 200))
+--	15.Г‚Г»ГўГҐГ±ГІГЁ ГґГ Г¬ГЁГ«ГЁГЁ Г Г±Г±ГЁГ±ГІГҐГ­ГІГ®Гў Г±Г® Г±ГІГ ГўГЄГ®Г© Г¬ГҐГ­ГјГёГҐ 550 ГЁГ«ГЁ Г­Г Г¤ГЎГ ГўГЄГ®Г© Г¬ГҐГ­ГјГёГҐ 200.
+SELECT Surname FROM Teachers WHERE (IsAssistant = 1 AND (Salary < 550 OR Premium < 200))
